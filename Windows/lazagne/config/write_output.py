@@ -91,9 +91,9 @@ class StandardOutput(object):
         if python_version == 3:
             return obj
         try:
-            if isinstance(obj, basestring):
-                if not isinstance(obj, unicode):
-                    obj = unicode(obj, encoding)
+            if isinstance(obj, basestring):       # noqa
+                if not isinstance(obj, unicode):  # noqa
+                    obj = unicode(obj, encoding)  # noqa
         except UnicodeDecodeError:
             return repr(obj)
         return obj

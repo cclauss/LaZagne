@@ -104,6 +104,8 @@ class StandardOutput(object):
             if isinstance(obj, basestring):
                 if not isinstance(obj, unicode):
                     obj = unicode(obj, encoding)
+        except NameError:  # basestring and unicode were removed in Python 3
+            obj = obj.decode(encoding)
         except Exception:
             pass
         return obj

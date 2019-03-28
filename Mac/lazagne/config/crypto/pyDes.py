@@ -9,7 +9,7 @@
 # Homepage: http://twhiteman.netfirms.com/des.html
 #
 # This is a pure python implementation of the DES encryption algorithm.
-# It's pure python to avoid portability issues, since most DES 
+# It's pure python to avoid portability issues, since most DES
 # implementations are programmed in C (for performance reasons).
 #
 # Triple DES class is also implemented, utilizing the DES base. Triple DES
@@ -59,7 +59,7 @@ pad     -> Optional argument. Only when using padmode of PAD_NORMAL. For
        bytes of the unencrypted data block.
 padmode -> Optional argument, set the padding mode, must be one of PAD_NORMAL
        or PAD_PKCS5). Defaults to PAD_NORMAL.
-      
+
 
 Example
 -------
@@ -230,10 +230,10 @@ class _baseDes(object):
     def _guardAgainstUnicode(self, data):
         # Only accept byte strings or ascii unicode values, otherwise
         # there is no way to correctly decode the data into bytes.
-        if _pythonMajorVersion < 3:
+        try:
             if isinstance(data, unicode):
                 raise ValueError("pyDes can only work with bytes, not Unicode strings.")
-        else:
+        except NameError:  # unicode was removed in Python 3
             if isinstance(data, str):
                 # Only accept ascii unicode values.
                 try:

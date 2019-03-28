@@ -105,6 +105,8 @@ class StandardOutput():
             if isinstance(obj, basestring):
                 if not isinstance(obj, unicode):
                     obj = unicode(obj, encoding)
+        except NameError:  # basestring and unicode were removed in Python 3
+            obj = obj.decode(encoding)
         except Exception:
             pass
         return obj
@@ -136,7 +138,7 @@ class StandardOutput():
             constant.finalResults["Passwords"].append([{"Category": category}, values])
 
     def print_output(self, software_name, pwd_found):
-        
+
         if pwd_found:
             # If the debug logging level is not apply => print the title
             if not logging.getLogger().isEnabledFor(logging.INFO):
